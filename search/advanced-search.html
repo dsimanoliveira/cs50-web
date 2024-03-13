@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Advanced Search</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="navbar-div">     
+                    <ul>
+                        <li><a href="index.html">Google Search</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section>
+          <div class="label">
+            <label>Advanced Search</label>
+          </div>
+          <div class="separator"></div>
+          <div class="advanced-form-div">
+            <form action="https://www.google.com/search" id="advanced-form">
+              <div class="title">
+                <span>Find pages with...</span>
+              </div>
+              <div class="advanced-form-content">
+                <div>
+                  <div class="label-element">
+                    <label for="all-these-words">all these words:</label>
+                  </div>
+                  <div class="input-element">
+                    <input type="text" id="all-these-words" name="as_q">
+                  </div>
+                </div>
+                <div>
+                  <div class="label-element">
+                    <label for="this-exact-word-or-phrase">this exact word or phrase:</label>
+                  </div>
+                  <div class="input-element">
+                    <input type="text" id="this-exact-word-or-phrase" name="as_epq">
+                  </div>
+                </div>
+                <div>
+                  <div class="label-element">
+                    <label for="any-of-these-words">any of these words:</label>
+                  </div>
+                  <div class="input-element">
+                    <input type="text" id="any-of-these-words" name="as_oq">
+                  </div>
+                </div>
+                <div>
+                  <div class="label-element">
+                    <label for="none-of-these-words">none of these words:</label>
+                  </div>
+                  <div class="input-element">
+                    <input type="text" id="none-of-these-words" name="as_eq">
+                  </div>
+                </div>
+                <div>
+                  <input id="advanced-search-btn" type="submit" value="Advanced Search">
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+    </body>
+</html>

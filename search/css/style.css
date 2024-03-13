@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.navbar-div {
+  height: 100%;
+  font-size: 13px;
+}
+.navbar-div ul {
+  height: 60px;
+  padding: 6px;
+  padding-right: 121px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navbar-div ul li {
+  list-style: none;
+}
+.navbar-div ul li a {
+  padding-left: 15px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+#main-content {
+  margin: 100px;
+}
+
+.flex-container, form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flex-container .logo-img, form .logo-img {
+  min-height: 92px;
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+}
+.flex-container .logo-img img, form .logo-img img {
+  max-width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center bottom;
+     object-position: center bottom;
+  width: auto;
+}
+.flex-container .logo-img span, form .logo-img span {
+  color: #4285f4;
+  font-size: 16px;
+  position: absolute;
+  left: 215px;
+  bottom: 0;
+  white-space: nowrap;
+}
+.flex-container .search-box, form .search-box {
+  padding-bottom: 20px;
+}
+.flex-container .search-box #search-field, form .search-box #search-field {
+  width: 582px;
+  height: 44px;
+  border: 1px solid #dfe1e5;
+  transition: box-shadow 100ms;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  padding-left: 30px;
+}
+.flex-container .search-box #search-field:hover, form .search-box #search-field:hover {
+  border: 0px solid #fff;
+  border-radius: 44px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.05), 0 0 3px rgba(0, 0, 0, 0.05), 0 0 4px rgba(0, 0, 0, 0.05), 0 0 5px rgba(0, 0, 0, 0.05), 0 0 4px rgba(0, 0, 0, 0.05), 0 0 5px rgba(0, 0, 0, 0.05);
+}
+.flex-container .form-inputs input[type=submit], form .form-inputs input[type=submit] {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-family: arial, sans-serif;
+  margin: 11px 4px;
+  padding: 0 16px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+}
+.flex-container .form-inputs input[type=submit]:hover, form .form-inputs input[type=submit]:hover {
+  border: 0px solid #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.05), 0 0 3px rgba(0, 0, 0, 0.05), 0 0 4px rgba(0, 0, 0, 0.05), 0 0 5px rgba(0, 0, 0, 0.05), 0 0 4px rgba(0, 0, 0, 0.05), 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  color: #d93025;
+  font-size: 20px;
+  margin: 25px 35px;
+  height: 23px;
+}
+
+.separator {
+  border-bottom: 1px solid #ebebeb;
+}
+
+#advanced-form .title {
+  width: 100%;
+  padding: 40px;
+}
+#advanced-form .title span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+}
+#advanced-form .advanced-form-content {
+  width: 100%;
+  padding-left: 40px;
+}
+#advanced-form .advanced-form-content div {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  margin-bottom: 25px;
+}
+#advanced-form .advanced-form-content div .label-element {
+  width: 165px;
+}
+#advanced-form .advanced-form-content div input {
+  margin-left: 20px;
+  padding-left: 10px;
+  height: 29px;
+  width: 550px;
+  border-radius: 1px;
+  border: 1px solid #d9d9d9;
+  outline: none;
+}
+#advanced-form .advanced-form-content div #advanced-search-btn {
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  height: 30px;
+  box-shadow: none;
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top, #4d90fe, #4787ed);
+  border: 1px solid #3079ed;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  color: #fff;
+}/*# sourceMappingURL=style.css.map */
