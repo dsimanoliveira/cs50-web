@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, AuctionListing, AuctionCategorie
+from .models import User, AuctionListing, UserWatchlist, Bid
 
 
 def index(request):
@@ -15,10 +16,46 @@ def index(request):
 
 
 def listing_view(request, listing_id):
+    # Check if listing_id is in user's watchlist
+    if request.user.is_authenticated:
+        user = request.user
+        is_watchlisted = True if user.watchlist.filter(listing_id=listing_id).first() else False
+    else:
+        is_watchlisted = False
+    
     listing = AuctionListing.objects.get(id=listing_id)
     return render(request, "auctions/listing_page.html", {
-        "listing": listing
+        "listing": listing,
+        "is_watchlisted": is_watchlisted
     })
+
+
+def user_watchlist_view(request):
+    if request.user.is_authenticated:
+        user = request.user 
+        watchlist = user.watchlist.all()
+        return render(request, "auctions/watchlist.html", {
+            "watchlist": watchlist
+        })
+    
+
+def add_to_watchlist(request, listing_id):
+    if request.method == "POST":
+        user = request.user
+        listing = AuctionListing.objects.get(id=listing_id)
+        watchlist_item = UserWatchlist(user=user, listing=listing)
+        watchlist_item.save() 
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+
+def remove_from_watchlist(request, listing_id):
+    if request.method == "POST":
+        user = request.user
+        listing = AuctionListing.objects.get(id=listing_id)
+        watchlist_item = UserWatchlist.objects.filter(user=user, listing=listing).first()
+        if watchlist_item:
+            watchlist_item.delete()
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
 
 
 def login_view(request):

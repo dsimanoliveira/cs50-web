@@ -18,20 +18,31 @@
             <h2>{{ listing.title }}</h2>
             <p>{{ listing.description }}</p>
             <p><strong>Category:</strong> {{ listing.category.name }}</p>
-            <p><strong>Price:</strong> ${{ listing.starting_bid }}</p>
+            <p><strong>Starting bid:</strong> ${{ listing.starting_bid }}</p>
             <p><strong>Owner:</strong> {{ listing.owner.username }}</p>
             <p><strong>Created at:</strong> {{ listing.created_at }}</p>
             <p><strong>Status:</strong> {% if listing.is_active %}Active{% else %}Closed{% endif %}</p>
+            <p><strong>Current price:</strong> ${{ listing.get_current_price }}</p>
 
             <!-- Watchlist Button -->
              {% if user.is_authenticated %}
-             <a href="">add/remove watchlist</a>
+                <form method="post" action="{% url is_watchlisted|yesno:'remove_from_watchlist,add_to_watchlist' listing.id %}">
+                    {% csrf_token %}
+                        {% if is_watchlisted %}
+                            <button type="submit" class="watchlist-btn remove">Remove from Watchlist</button>
+                        {% else %}
+                            <button type="submit" class="watchlist-btn add">Add to Watchlist</button>
+                        {% endif %}
+                </form>
              {% endif %}
 
             <!-- Delete Button (show only if user is owner) -->
-             {%if user.is_authenticated %}
-             <a href="">delete listing</a>
-             {% endif %}
+            {% if user.is_authenticated and user == listing.owner %}
+                <form method="post" action="" style="margin-top:10px;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-btn">Close Auction</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 
