@@ -4,13 +4,24 @@
     <h2>Active Listings</h2>
 
     {% if listings %}
-        <ul>
+        <div class="listings-container">
             {% for listing in listings %}
-                <li>
-                    {{ listing }}
-                </li>
+                <div class="listing-card">
+                    <div class="listing-image">
+                        {% if listing.image_url %}
+                            <img src="{{ listing.image_url }}" alt="{{ listing.title }}" />
+                        {% else %}
+                            <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" alt="No image" />
+                        {% endif %}
+                    </div>
+                    <div class="listing-details">
+                        <a href="{% url 'listing' listing.id %}"><h3>{{ listing.title }}</h3></a>
+                        <p>{{ listing.description }}</p>
+                        <p class="listing-price"><strong>Price:</strong> ${{ listing.starting_bid }}</p>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No active listings available.</p>
     {% endif %}

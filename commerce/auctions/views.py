@@ -4,15 +4,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, AuctionListings, AuctionCategories
+from .models import User, AuctionListing, AuctionCategorie
 
 
 def index(request):
-
-    active_listings = AuctionListings.objects.filter(is_active=True)
-
+    active_listings = AuctionListing.objects.filter(is_active=True)
     return render(request, "auctions/index.html", {
         "listings": active_listings
+    })
+
+
+def listing_view(request, listing_id):
+    listing = AuctionListing.objects.get(id=listing_id)
+    return render(request, "auctions/listing_page.html", {
+        "listing": listing
     })
 
 

@@ -1,3 +1,38 @@
 body {
     padding: 10px;
 }
+.listings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.listing-card {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.listing-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+.listing-details {
+    flex: 1;
+}
+.listing-details h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+.listing-details p {
+    margin: 4px 0;
+}
+.listing-price {
+    color: #0070f3;
+    font-size: 1.1em;
+}
