@@ -48,3 +48,12 @@ textarea {
     padding: 8px;
     margin-bottom: 8px;
 }
+.listing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.listing-actions {
+    display: flex;
+    gap: 10px;
+}

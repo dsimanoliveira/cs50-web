@@ -4,6 +4,7 @@ from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from decimal import Decimal
 
 from .models import User, AuctionListing, UserWatchlist, Bid
 
@@ -56,6 +57,40 @@ def remove_from_watchlist(request, listing_id):
         if watchlist_item:
             watchlist_item.delete()
         return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+    
+
+def bid_view(request, listing_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        user = request.user 
+        listing = AuctionListing.objects.get(id=listing_id)
+        bid_amount = Decimal(request.POST.get("bid_amount"))
+        
+        bid = Bid(bidder=user, listing=listing, amount=bid_amount)
+
+        try:
+            bid.full_clean()  # Validate the bid
+            bid.save()
+            return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+        except Exception as e:
+            bid_error = str(e)
+            return render(request, "auctions/listing_page.html", {
+                "listing": listing,
+                "bid_error": bid_error,
+                "is_watchlisted": True if user.watchlist.filter(listing_id=listing_id).first() else False
+            })
+        
+
+def close_auction_view(request, listing_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        user = request.user
+        listing = AuctionListing.objects.get(id=listing_id)
+
+        if user == listing.owner:
+            listing.is_active = False 
+            listing.save() 
+            return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+            # TO DO: determine the winner of the auction
+            # TO DO: how to deal with the watchlist of the user?
 
 
 def login_view(request):

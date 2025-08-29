@@ -22,6 +22,9 @@ class AuctionListing(models.Model):
         if bids:
             return bids.aggregate(Max('amount'))['amount__max']
         return self.starting_bid
+    
+    def has_bids(self):
+        return self.bids.exists()
 
     def __str__(self):
         return f"{self.title} - ${self.get_current_price()}"
