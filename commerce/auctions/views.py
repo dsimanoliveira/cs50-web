@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from decimal import Decimal
 
-from .models import User, AuctionListing, UserWatchlist, Bid, Comment
+from .models import User, AuctionListing, UserWatchlist, Bid, Comment, AuctionCategorie
 
 
 def index(request):
@@ -31,10 +31,26 @@ def listing_view(request, listing_id):
     })
 
 
+def categories_view(request):
+    categories = AuctionCategorie.objects.all()
+    return render(request, "auctions/categories.html", {
+        "categories": categories
+    })
+
+
+def listings_from_categorie_view(request, category_id):
+    category = AuctionCategorie.objects.get(id=category_id)
+    listings = AuctionListing.objects.filter(category=category)
+    return render(request, "auctions/listings_from_category.html", {
+        "listings": listings,
+        "category": category
+    })
+
+
 def user_watchlist_view(request):
     if request.user.is_authenticated:
         user = request.user 
-        watchlist = user.watchlist.all()
+        watchlist = AuctionListing.objects.filter(watchlisted_by__user=user)
         return render(request, "auctions/watchlist.html", {
             "watchlist": watchlist
         })

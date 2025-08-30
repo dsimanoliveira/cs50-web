@@ -1,29 +1,5 @@
 {% extends "auctions/layout.html" %}
-
 {% block body %}
     <h2>Watchlist items</h2>
-
-    {% if watchlist %}
-        <div class="listings-container">
-            {% for item in watchlist %}
-                <div class="listing-card">
-                    <div class="listing-image">
-                        {% if item.listing.image_url %}
-                            <img src="{{ item.listing.image_url }}" alt="{{ item.listing.title }}" />
-                        {% else %}
-                            <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" alt="No image" />
-                        {% endif %}
-                    </div>
-                    <div class="listing-details">
-                        <a href="{% url 'listing' item.listing.id %}"><h3>{{ item.listing.title }}</h3></a>
-                        <p>{{ item.listing.description }}</p>
-                        <p class="listing-price"><strong>Price:</strong> ${{ item.listing.get_current_price|floatformat:2 }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>No items on Watchlist.</p>
-    {% endif %}
-
+    {% include "auctions/listings_list.html" with listings=watchlist %}
 {% endblock %}

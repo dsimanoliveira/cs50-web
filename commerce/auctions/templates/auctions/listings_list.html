@@ -1,0 +1,22 @@
+{% if listings %}
+    <div class="listings-container">
+        {% for listing in listings %}
+            <div class="listing-card">
+                <div class="listing-image">
+                    {% if listing.image_url %}
+                        <img src="{{ listing.image_url }}" alt="{{ listing.title }}" />
+                    {% else %}
+                        <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" alt="No image" />
+                    {% endif %}
+                </div>
+                <div class="listing-details">
+                    <a href="{% url 'listing' listing.id %}"><h3>{{ listing.title }}</h3></a>
+                    <p>{{ listing.description }}</p>
+                    <p class="listing-price"><strong>Price:</strong> ${{ listing.get_current_price|floatformat:2 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No items.</p>
+{% endif %}
