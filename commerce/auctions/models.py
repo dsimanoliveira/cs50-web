@@ -26,6 +26,12 @@ class AuctionListing(models.Model):
     def has_bids(self):
         return self.bids.exists()
 
+    def get_auction_winner(self):
+        if not self.is_active and self.has_bids():
+            highest_bid = self.bids.order_by('-amount').first()
+            return highest_bid.bidder
+        return None
+
     def __str__(self):
         return f"{self.title} - ${self.get_current_price()}"
     
@@ -63,3 +69,12 @@ class Bid(models.Model):
 
     def __str__(self):
         return f"{self.bidder.username} bid {self.amount} on {self.listing.title}"
+    
+class Comment(models.Model):
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="comments")
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.commenter.username} on {self.listing.title}"

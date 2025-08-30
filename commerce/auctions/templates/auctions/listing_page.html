@@ -11,7 +11,7 @@
             {% if listing.image_url %}
                 <img src="{{ listing.image_url }}" alt="{{ listing.title }}" />
             {% else %}
-                <img src="https://via.placeholder.com/300x300?text=No+Image" alt="No image" />
+                <img src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" alt="No image" />
             {% endif %}
         </div>
         <div class="listing-detail-info">
@@ -56,17 +56,24 @@
                     <p class="error" style="color:red;">{{ bid_error }}</p>
                 {% endif %}
             {% endif %}
+
+
+             {% if user.is_authenticated and not listing.is_active and listing.get_auction_winner == user %}
+                <p>Congratulations! You are the auction winner!</p>
+             {% endif %}
+
+
         </div>
     </div>
 
     <!-- Comments Section -->
     <div class="comments-section">
         <h3>Comments</h3>
-        {% if comments %}
+        {% if listing.comments.all %}
             <ul class="comments-list">
-                {% for comment in comments %}
+                {% for comment in listing.comments.all %}
                     <li>
-                        <strong>{{ comment.user.username }}</strong> ({{ comment.created_at }}):<br>
+                        <strong>{{ comment.commenter.username }}</strong> ({{ comment.created_at }}):<br>
                         {{ comment.text }}
                     </li>
                 {% endfor %}
@@ -76,7 +83,15 @@
         {% endif %}
 
         {% if user.is_authenticated %}
-            <a href="">add comment</a>
+            <form method="post" action="{% url 'add_comment' listing.id %}" class="add-comment-form" style="margin-top:15px;">
+            {% csrf_token %}
+            <label for="comment_text"><strong>Add a comment:</strong></label><br>
+            <textarea name="comment_text" id="comment_text" rows="3" required></textarea><br>
+            <button type="submit" class="comment-btn">Post Comment</button>
+            </form>
+            {% if comment_error %}
+            <p class="error" style="color:red;">{{ comment_error }}</p>
+            {% endif %}
         {% else %}
             <p><a href="{% url 'login' %}">Log in</a> to post a comment.</p>
         {% endif %}

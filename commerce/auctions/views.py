@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from decimal import Decimal
 
-from .models import User, AuctionListing, UserWatchlist, Bid
+from .models import User, AuctionListing, UserWatchlist, Bid, Comment
 
 
 def index(request):
@@ -89,8 +89,17 @@ def close_auction_view(request, listing_id):
             listing.is_active = False 
             listing.save() 
             return HttpResponseRedirect(reverse("listing", args=[listing_id]))
-            # TO DO: determine the winner of the auction
-            # TO DO: how to deal with the watchlist of the user?
+
+
+def add_comment_view(request, listing_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        user = request.user 
+        listing = AuctionListing.objects.get(id=listing_id)
+        comment_text = request.POST.get("comment_text")
+
+        comment = Comment(commenter=user, listing=listing, text=comment_text)
+        comment.save()
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
 
 
 def login_view(request):
