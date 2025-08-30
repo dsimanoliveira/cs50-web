@@ -40,9 +40,9 @@ def categories_view(request):
 
 def listings_from_categorie_view(request, category_id):
     category = AuctionCategorie.objects.get(id=category_id)
-    listings = AuctionListing.objects.filter(category=category)
+    active_listings = AuctionListing.objects.filter(category=category, is_active=True)
     return render(request, "auctions/listings_from_category.html", {
-        "listings": listings,
+        "listings": active_listings,
         "category": category
     })
 
