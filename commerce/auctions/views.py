@@ -7,6 +7,20 @@ from django.urls import reverse
 from decimal import Decimal
 
 from .models import User, AuctionListing, UserWatchlist, Bid, Comment, AuctionCategorie
+from django import forms
+
+
+class AuctionListingForm(forms.ModelForm):
+    class Meta:
+        model = AuctionListing
+        fields = ['title', 'description', 'starting_bid', 'image_url', 'category']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'starting_bid': forms.NumberInput(attrs={'class': 'form-control'}),
+            'image_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+        }
 
 
 def index(request):
@@ -116,6 +130,23 @@ def add_comment_view(request, listing_id):
         comment = Comment(commenter=user, listing=listing, text=comment_text)
         comment.save()
         return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+    
+
+def create_listing_view(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        form = AuctionListingForm(request.POST)
+        if form.is_valid():
+            new_listing = form.save(commit=False)
+            new_listing.owner = request.user
+            new_listing.current_price = new_listing.starting_bid
+            new_listing.save()
+            return HttpResponseRedirect(reverse("index"))
+    else:
+        form = AuctionListingForm()
+    
+    return render(request, "auctions/create_listing.html", {
+        "form": form
+    })
 
 
 def login_view(request):

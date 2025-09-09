@@ -8,7 +8,7 @@ body {
 }
 .listing-card {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
@@ -18,7 +18,7 @@ body {
 .listing-image img {
     width: 150px;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     margin-right: 20px;
 }

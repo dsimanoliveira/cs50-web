@@ -11,7 +11,7 @@
                 </div>
                 <div class="listing-details">
                     <a href="{% url 'listing' listing.id %}"><h3>{{ listing.title }}</h3></a>
-                    <p>{{ listing.description }}</p>
+                    <p>{{ listing.description|linebreaksbr }}</p>
                     <p class="listing-price"><strong>Price:</strong> ${{ listing.get_current_price|floatformat:2 }}</p>
                 </div>
             </div>

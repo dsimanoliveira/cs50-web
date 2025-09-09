@@ -36,7 +36,7 @@
                     {% endif %}
                 </div>
             </div>
-            <p>{{ listing.description }}</p>
+            <p>{{ listing.description|linebreaksbr }}</p>
             <p><strong>Category:</strong> {{ listing.category.name }}</p>
             <p><strong>Starting bid:</strong> ${{ listing.starting_bid }}</p>
             <p><strong>Owner:</strong> {{ listing.owner.username }}</p>

@@ -7,10 +7,17 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     padding: 24px;
 }
+.listing-detail-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+    min-height: 300px;
+}
 .listing-detail-image img {
     width: 300px;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
 }
 .listing-detail-info {
