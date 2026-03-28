@@ -1,9 +1,11 @@
 textarea {
-    min-height: 400px;
+  min-height: 400px;
 }
+
 #emails-view .email-item {
   margin-bottom: 5px;
 }
+
 .email-item {
   border: 1px solid black;
   display: flex;
@@ -12,9 +14,20 @@ textarea {
   cursor: pointer;
   padding: 3px;
 }
+
 .email-item.read {
-  background-color: #e6e6e6; /* gray */
+  background-color: #e6e6e6;
 }
+
 .email-item.unread {
   background-color: white;
+}
+
+#detail-body {
+  white-space: pre-wrap;
+}
+
+/* add space between archive and reply button */
+#archive-btn {
+  margin-right: 4px;
 }
