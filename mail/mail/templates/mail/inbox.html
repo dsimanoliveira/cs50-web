@@ -30,6 +30,16 @@
             <input type="submit" class="btn btn-primary"/>
         </form>
     </div>
+
+    <div id="email-detail-view">
+        <h3>Email Detail</h3>
+        <p><strong>From:</strong> <span id="detail-sender"></span></p>
+        <p><strong>To:</strong> <span id="detail-recipients"></span></p>
+        <p><strong>Subject:</strong> <span id="detail-subject"></span></p>
+        <p><strong>Timestamp:</strong> <span id="detail-timestamp"></span></p>
+        <hr>
+        <p id="detail-body"></p>
+    </div>
 {% endblock %}
 
 {% block script %}
